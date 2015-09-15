@@ -1,7 +1,9 @@
-
+require 'date'
 
 class Key
+
   attr_accessor :key
+
   def initialize
     @key = key
   end
@@ -17,16 +19,26 @@ class Key
 end
 
 class Offsets
-  def date_format
-    # ddmmyy
+
+  attr_accessor :offsets, :integer_date
+
+  def initialize
+    @offsets = offsets
+    @integer_date = integer_date
   end
 
-  def square_date
-    #square date_format and output last four digits to an array
-  end
+  def square_date!
+    date = Date.today.strftime("%d%m%y")
+    integer_date = date.to_i
+    @integer_date = integer_date ** 2
+  end 
 
-  def offsets
-    #set offsets equal to corresponding square_date array index
+  def offsets_array
+    squared_string = @integer_date.to_s
+    squared_array = squared_string.split("").map do |n|
+      n.to_i
+    end
+    squared_array.last(4)
   end
 end
 
