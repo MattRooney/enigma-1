@@ -1,19 +1,19 @@
-Character_Map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
-                 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',' z'
-                 '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']
+
 
 class Key
-  def initialize(key)
+  attr_accessor :key
+  def initialize
     @key = key
   end
 
   def random_generator
-    #generate random five digit key
+    array = []
+    5.times do
+      array << rand(10)
+    end
+    @key = array
   end
 
-  def key
-    #a is first two digits, b is two and three, c is three and four, d is four and five
-  end
 end
 
 class Offsets
