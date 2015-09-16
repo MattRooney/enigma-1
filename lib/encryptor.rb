@@ -1,12 +1,12 @@
-require 'date'  # => true
+require 'date'
 
 class Key
 
-  attr_accessor :key  # => nil
+  attr_accessor :key
 
   def initialize
     @key = key
-  end             # => :initialize
+  end
 
   def random_generator
     array = []
@@ -14,18 +14,18 @@ class Key
       array << rand(10)
     end
     @key = array
-  end                    # => :random_generator
+  end
 
-end  # => :random_generator
+end
 
 class Offsets
 
-  attr_accessor :offsets, :integer_date  # => nil
+  attr_accessor :offsets, :integer_date
 
   def initialize
     @offsets = offsets
     @integer_date = integer_date
-  end                             # => :initialize
+  end
 
   def offsets_array
     date = Date.today.strftime("%d%m%y")
@@ -36,27 +36,91 @@ class Offsets
       n.to_i
     end
     squared_array.last(4)
-  end                                                    # => :offsets_array
-end                                                      # => :offsets_array
+  end
+end
 
-class Encryptor < Offsets                 # => Offsets
-  attr_accessor :key, :offsets            # => nil
+class Encryptor < Offsets
+  attr_accessor :key, :offsets, :key_a, :key_b, :key_c, :key_d
   def initialize
     @key     = Key.new.random_generator
     @offsets = Offsets.new.offsets_array
-  end                                     # => :initialize
+  end
+
+  def key_a
+    @key = @key.map { |i| i.to_s}
+    key_a_string = @key[0] + @key[1]
+    @key_a = key_a_string.to_i
+  end
+
+  def key_b
+    @key = @key.map { |i| i.to_s}
+    key_a_string = @key[1] + @key[2]
+    @key_b = key_a_string.to_i
+  end
+
+  def key_c
+    @key = @key.map { |i| i.to_s}
+    key_a_string = @key[2] + @key[3]
+    @key_c = key_a_string.to_i
+  end
+
+  def key_d
+    @key = @key.map { |i| i.to_s}
+    key_a_string = @key[3] + @key[4]
+    @key_d = key_a_string.to_i
+  end
+
+  def offsets_a
+    @offsets_a = @offsets[0]
+  end
+
+  def offsets_b
+    @offsets_b = @offsets[1]
+  end
+
+  def offsets_c
+    @offsets_c = @offsets[2]
+  end
+
+  def offsets_d
+    @offsets_d = @offsets[3]
+  end
 
   def encryption_a
-    @key.first(2)
-    @offsets[0]
-    # set a b c and d to values of corresponding offset plus corresponding key
-  end             # => :encryption
+    @encryption_a = key_a + offsets_a
+  end
+
+  def encryption_b
+    @encryption_b = key_b + offsets_b
+  end
+
+  def encryption_c
+    @encryption_c = key_c + offsets_c
+  end
+
+  def encryption_d
+    @encryption_d = key_d + offsets_d
+  end
 
   def original_message
     # take string of original message and seperate it by character
-  end                   # => :original_message
+  end
 
   def encrypt_message
     # reset character values according to encryption number(s)
-  end                  # => :encrypt_message
-end                    # => :encrypt_message
+  end
+end
+
+value = Encryptor.new
+value.key_a
+value.key_b
+value.key_c
+value.key_d
+value.offsets_a
+value.offsets_b
+value.offsets_c
+value.offsets_d
+value.encryption_a
+value.encryption_b
+value.encryption_c
+value.encryption_d
