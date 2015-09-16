@@ -29,20 +29,26 @@ class EncryptorTests < Minitest::Test
   end
 
   def test_key_created
-    skip #is this test correct
     num = Key.new
-    assert_equal num.random_generator, key
+    refute nil, num.random_generator
   end
 
   def test_it_squares_the_date
     date = Offsets.new
     assert_equal 22775337225, date.square_date!
+    #will only pass on date created, remember to refactor
   end
 
   def test_it_offsets
     date = Offsets.new
     date.square_date!
     assert_equal [7, 2, 2, 5], date.offsets_array
+    #will only pass on date created, remember to refactor
+  end
+
+  def test_encryptor_key
+    key = Encryptor.new
+    assert_equal 0, key
   end
 
 end

@@ -31,7 +31,7 @@ class Offsets
     date = Date.today.strftime("%d%m%y")
     integer_date = date.to_i
     @integer_date = integer_date ** 2
-  end 
+  end
 
   def offsets_array
     squared_string = @integer_date.to_s
@@ -42,7 +42,13 @@ class Offsets
   end
 end
 
-class Encryptor
+class Encryptor < Offsets
+
+  def initialize
+    @key = Key.new.random_generator
+    temp = Offsets.new.square_date!
+    @offsets = temp.offsets_array
+  end
   def encryption
     # set a b c and d to values of corresponding offset plus corresponding key
   end
