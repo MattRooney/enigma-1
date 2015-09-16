@@ -34,15 +34,16 @@ class EncryptorTests < Minitest::Test
   end
 
   def test_it_squares_the_date
+    skip #deleted method - absorbed in offsets_array
     date = Offsets.new
     assert_equal 22775337225, date.square_date!
     #will only pass on date created, remember to refactor
   end
 
   def test_it_offsets
-    date = Offsets.new
-    date.square_date!
-    assert_equal [7, 2, 2, 5], date.offsets_array
+    # date = Offsets.new
+    # date.square_date!
+    assert_equal [7, 2, 2, 5], Offsets.new.offsets_array
     #will only pass on date created, remember to refactor
   end
 
