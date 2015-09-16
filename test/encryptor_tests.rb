@@ -47,9 +47,18 @@ class EncryptorTests < Minitest::Test
     #will only pass on date created, remember to refactor
   end
 
-  def test_encryptor_key
-    key = Encryptor.new
-    assert_equal 0, key
+  def test_encryptor_has_a_key
+    encryptor = Encryptor.new
+    assert_equal 5, encryptor.key.count
   end
 
+  def test_it_has_correct_offsets
+    encryptor = Encryptor.new
+    assert_equal [7, 2, 2, 5], encryptor.offsets
+  end
+
+  def test_the_key_index
+    encryptor = Encryptor.new
+    assert_equal [0, 1], encryptor.first(2)
+  end
 end
