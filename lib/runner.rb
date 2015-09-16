@@ -6,4 +6,4 @@ date = Date.today.strftime("%d%m%y")
 message = File.read(input_file)
 # encrypt_message = Encryptor.new
 
-puts "Created #{output_file} with the key key and date #{date}"
+puts "Created #{output_file} with the key #{key} and date #{date}"
