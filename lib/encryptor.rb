@@ -41,7 +41,7 @@ end
 
 class Encryptor
   Character_Map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',' z',
+                  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y','z',
                   '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']
 
   attr_accessor :key, :offsets, :key_a, :key_b, :key_c, :key_d
@@ -115,6 +115,7 @@ class Encryptor
   end
 end
 
+offsets = Offsets.new
 value = Encryptor.new
 value.key_a
 value.key_b
