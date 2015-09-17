@@ -1,8 +1,7 @@
 # require './lib/runner'
 class Parser
-
   attr_accessor :message
-  
+
   def initialize(message)
     @message = message
   end
