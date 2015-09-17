@@ -20,6 +20,6 @@ class MessageEncrypt
 end                                                                                           # => :encryptor
 
 
-text = MessageEncrypt.new                                                                                              # => #<MessageEncrypt:0x007f9dda978478>
+text = MessageEncrypt.new                                                                                              # => #<MessageEncrypt:0x007feb0500ca38>
 result = text.encryptor(["t", "h", "i", "s", " ", "i", "s", " ", "a", " ", "t", "e", "s", "t", "."], [10, 60, 4, 98])  # => ["3", "2", "m", ",", "h", "3", "w", "r", "k", "s", "x", "y", "2", "b", "c"]
 result == ["3", "2", "m", ",", "h", "3", "w", "r", "k", "s", "x", "y", "2", "b", "c"]                                  # => true
