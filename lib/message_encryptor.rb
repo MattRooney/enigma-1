@@ -17,7 +17,3 @@ class MessageEncrypt
     array
   end
 end
-
-text = MessageEncrypt.new
-result = text.encryptor(["t", "h", "i", "s", " ", "i", "s", " ", "a", " ", "t", "e", "s", "t", "."], [10, 60, 4, 98])
-result == ["3", "2", "m", ",", "h", "3", "w", "r", "k", "s", "x", "y", "2", "b", "c"]
