@@ -1,5 +1,4 @@
 class MessageEncrypt
-
   def encryptor(message, rotation)
     character_map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y','z',
@@ -18,7 +17,6 @@ class MessageEncrypt
     array
   end
 end
-
 
 text = MessageEncrypt.new
 result = text.encryptor(["t", "h", "i", "s", " ", "i", "s", " ", "a", " ", "t", "e", "s", "t", "."], [10, 60, 4, 98])
