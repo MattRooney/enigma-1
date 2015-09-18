@@ -12,5 +12,5 @@ class Parser
   end
 end
 
-message = Parser.new "This is a test."
+message = Parser.new "This is a test. Words and stuff."
 message.parse_to_fours

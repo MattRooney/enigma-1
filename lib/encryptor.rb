@@ -40,7 +40,9 @@ class Offsets
 end
 
 class Encryptor
+
   attr_accessor :key, :offsets, :key_a, :key_b, :key_c, :key_d
+
 
   def initialize
     @key     = Key.new.random_generator
@@ -105,3 +107,15 @@ class Encryptor
     @rotation
   end
 end
+
+value = Encryptor.new  # => #<Encryptor:0x007fa0a48f1e88 @key=[3, 4, 5, 4, 6], @offsets=[7, 2, 2, 5]>
+value.key_a            # => 34
+value.key_b            # => 45
+value.key_c            # => 54
+value.key_d            # => 46
+value.key_array        # => [34, 45, 54, 46]
+value.offsets_a        # => 7
+value.offsets_b        # => 2
+value.offsets_c        # => 2
+value.offsets_d        # => 5
+value.rotation         # => [41, 47, 56, 51]
