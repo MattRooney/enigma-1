@@ -11,9 +11,9 @@ class Key
   def random_generator
     array = []           # => []
     5.times do           # => 5
-      array << rand(10)  # => [1], [1, 4], [1, 4, 2], [1, 4, 2, 0], [1, 4, 2, 0, 4]
+      array << rand(10)  # => [3], [3, 4], [3, 4, 5], [3, 4, 5, 4], [3, 4, 5, 4, 6]
     end                  # => 5
-    @key = array         # => [1, 4, 2, 0, 4]
+    @key = array         # => [3, 4, 5, 4, 6]
   end                    # => :random_generator
 
 end  # => :random_generator
@@ -40,39 +40,45 @@ class Offsets
 end                                                      # => :offsets_array
 
 class Encryptor
-  Character_Map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',  # => "m"
-                  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',' z',   # => " z"
-                  '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']     # => ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", " z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", ".", ","]
-
   attr_accessor :key, :offsets, :key_a, :key_b, :key_c, :key_d  # => nil
+
   def initialize
-    @key     = Key.new.random_generator                         # => [1, 4, 2, 0, 4]
-    @offsets = Offsets.new.offsets_array                        # => [7, 2, 2, 5]
-  end                                                           # => :initialize
+    @key     = Key.new.random_generator   # => [3, 4, 5, 4, 6]
+    @offsets = Offsets.new.offsets_array  # => [7, 2, 2, 5]
+  end                                     # => :initialize
 
   def key_a
-    @key = @key.map { |i| i.to_s}     # => ["1", "4", "2", "0", "4"], ["1", "4", "2", "0", "4"]
-    key_a_string = @key[0] + @key[1]  # => "14", "14"
-    @key_a = key_a_string.to_i        # => 14, 14
+    @key = @key.map { |i| i.to_s}     # => ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"]
+    key_a_string = @key[0] + @key[1]  # => "34", "34", "34"
+    @key_a = key_a_string.to_i        # => 34, 34, 34
   end                                 # => :key_a
 
   def key_b
-    @key = @key.map { |i| i.to_s}     # => ["1", "4", "2", "0", "4"], ["1", "4", "2", "0", "4"]
-    key_a_string = @key[1] + @key[2]  # => "42", "42"
-    @key_b = key_a_string.to_i        # => 42, 42
+    @key = @key.map { |i| i.to_s}     # => ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"]
+    key_a_string = @key[1] + @key[2]  # => "45", "45", "45"
+    @key_b = key_a_string.to_i        # => 45, 45, 45
   end                                 # => :key_b
 
   def key_c
-    @key = @key.map { |i| i.to_s}     # => ["1", "4", "2", "0", "4"], ["1", "4", "2", "0", "4"]
-    key_a_string = @key[2] + @key[3]  # => "20", "20"
-    @key_c = key_a_string.to_i        # => 20, 20
+    @key = @key.map { |i| i.to_s}     # => ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"]
+    key_a_string = @key[2] + @key[3]  # => "54", "54", "54"
+    @key_c = key_a_string.to_i        # => 54, 54, 54
   end                                 # => :key_c
 
   def key_d
-    @key = @key.map { |i| i.to_s}     # => ["1", "4", "2", "0", "4"], ["1", "4", "2", "0", "4"]
-    key_a_string = @key[3] + @key[4]  # => "04", "04"
-    @key_d = key_a_string.to_i        # => 4, 4
+    @key = @key.map { |i| i.to_s}     # => ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"], ["3", "4", "5", "4", "6"]
+    key_a_string = @key[3] + @key[4]  # => "46", "46", "46"
+    @key_d = key_a_string.to_i        # => 46, 46, 46
   end                                 # => :key_d
+
+  def key_array
+    @key_array = []              # => []
+    @key_array.insert(0, key_a)  # => [34]
+    @key_array.insert(1, key_b)  # => [34, 45]
+    @key_array.insert(2, key_c)  # => [34, 45, 54]
+    @key_array.insert(3, key_d)  # => [34, 45, 54, 46]
+    @key_array                   # => [34, 45, 54, 46]
+  end                            # => :key_array
 
   def offsets_a
     @offsets_a = @offsets[0]  # => 7, 7
@@ -90,41 +96,24 @@ class Encryptor
     @offsets_d = @offsets[3]  # => 5, 5
   end                         # => :offsets_d
 
-  def encryption_a
-    @encryption_a = key_a + offsets_a  # => 21
-  end                                  # => :encryption_a
+  def rotation
+    @rotation = []                          # => []
+    @rotation.insert(0, key_a + offsets_a)  # => [41]
+    @rotation.insert(1, key_b + offsets_b)  # => [41, 47]
+    @rotation.insert(2, key_c + offsets_c)  # => [41, 47, 56]
+    @rotation.insert(3, key_d + offsets_d)  # => [41, 47, 56, 51]
+    @rotation                               # => [41, 47, 56, 51]
+  end                                       # => :rotation
+end                                         # => :rotation
 
-  def encryption_b
-    @encryption_b = key_b + offsets_b  # => 44
-  end                                  # => :encryption_b
-
-  def encryption_c
-    @encryption_c = key_c + offsets_c  # => 22
-  end                                  # => :encryption_c
-
-  def encryption_d
-    @encryption_d = key_d + offsets_d  # => 9
-  end                                  # => :encryption_d
-
-  def original_message
-    # take string of original message and seperate it by character
-  end                   # => :original_message
-
-  def encrypt_message
-    # reset character values according to encryption number(s)
-  end                  # => :encrypt_message
-end                    # => :encrypt_message
-
-value = Encryptor.new  # => #<Encryptor:0x007f8323809ac8 @key=[1, 4, 2, 0, 4], @offsets=[7, 2, 2, 5]>
-value.key_a            # => 14
-value.key_b            # => 42
-value.key_c            # => 20
-value.key_d            # => 4
+value = Encryptor.new  # => #<Encryptor:0x007fa0a48f1e88 @key=[3, 4, 5, 4, 6], @offsets=[7, 2, 2, 5]>
+value.key_a            # => 34
+value.key_b            # => 45
+value.key_c            # => 54
+value.key_d            # => 46
+value.key_array        # => [34, 45, 54, 46]
 value.offsets_a        # => 7
 value.offsets_b        # => 2
 value.offsets_c        # => 2
 value.offsets_d        # => 5
-value.encryption_a     # => 21
-value.encryption_b     # => 44
-value.encryption_c     # => 22
-value.encryption_d     # => 9
+value.rotation         # => [41, 47, 56, 51]

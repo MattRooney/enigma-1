@@ -6,7 +6,7 @@ class Decrypt
                     '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']
     array = []
     counter = 0
-    message.each do |letter|
+    message.map do |letter|
       if !character_map.include?(letter)
         array << letter
       else
