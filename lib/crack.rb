@@ -1,4 +1,4 @@
-require_relative 'decryptor'
+require './lib/message_decryptor'
 require 'date'
 require 'pry'
 
@@ -55,14 +55,12 @@ class Crack
   end
 end
 
-
 input_file = ARGV[0]
 output_file = ARGV[1]
-temp = File.read(input_file).chomp.downcase.gsub(/["\n"]/, " ")
-message = temp.chars
+message = File.read(input_file).chomp.downcase.gsub(/["\n"]/, " ").chars
 crack = Crack.new(message)
 rotation = crack.crack
-cracked_new = Decrypt.new
+cracked_new = MessageDecrypt.new
 cracked_message = cracked_new.decryptor(message, rotation)
 cracked = cracked_message.join
 File.open(output_file, "w") { |file| file.write(cracked)}

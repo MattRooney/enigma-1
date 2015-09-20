@@ -112,3 +112,4 @@ class EncryptorTests < Minitest::Test
     end
   end
 end
+  
