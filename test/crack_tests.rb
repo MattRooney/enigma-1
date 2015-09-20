@@ -11,5 +11,6 @@ class CrackTests < Minitest::Test
 
   def test_tail_pos_set_to_corresponding_rotation
     pos = Crack.new
+    assert_equal [2]
   end
 end

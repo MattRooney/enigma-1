@@ -1,41 +1,68 @@
+require './lib/message_decryptor'
+require 'date'
+require 'pry'
+
 class Crack
 
-  def tail_position(encrypted)
-    remainder = encrypted.length % 4
-    if remainder == 0
-      rotation_a
-    elsif remainder == 1
-      rotation_b
-    elsif remainder == 2
-      rotation_c
-    else
-      rotation_d
+  attr_accessor :character_map, :message
+
+  def initialize(message)
+    @message = message
+  end
+
+  def character_map
+    @character_map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y','z',
+                      '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']
+  end
+
+  def tail_position
+    remainder = message.length % 4
+  end
+
+  def tail_rotation
+    pos_char_map = character_map.index(message[-1])
+    @tail_rotation = (pos_char_map - character_map.index('.')) % character_map.length
+  end
+
+  def neg2_rotation
+    pos_char_map = character_map.index(message[-2])
+    @neg2_rotation = (pos_char_map - character_map.index('.')) % character_map.length
+  end
+
+  def neg3_rotation
+    pos_char_map = character_map.index(message[-3])
+    @neg3_rotation = (pos_char_map - character_map.index('d')) % character_map.length
+  end
+
+  def neg4_rotation
+    pos_char_map = character_map.index(message[-4])
+    @neg4_rotation = (pos_char_map - character_map.index('n')) % character_map.length
+  end
+
+  def crack
+    @crack = []
+    if tail_position == 0
+      @crack << neg4_rotation << neg3_rotation << neg2_rotation << tail_rotation
+    elsif tail_position == 1
+      @crack << tail_rotation << neg4_rotation << neg3_rotation << neg2_rotation
+    elsif tail_position == 2
+      @crack << neg2_rotation << tail_rotation << neg4_rotation << neg3_rotation
+    elsif tail_position == 3
+      @crack << neg3_rotation << neg2_rotation << tail_rotation << neg4_rotation
     end
-
+      @crack
   end
-
-  def
-    character_map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y','z',
-                    '0', '1', '2', '3', '4', '5', '6', '7','8','9', ' ', '.', ',']
-  end
-
-  def set_rotation_a
-
-  end
-
-  def set_rotation_b
-
-  end
-
-  def set_rotation_c
-
-  end
-
-  def set_rotation_d
-
-  end
-
-  def
-
 end
+
+input_file = ARGV[0]
+output_file = ARGV[1]
+message = File.read(input_file).chomp.downcase.gsub(/["\n"]/, " ").chars
+crack = Crack.new(message)
+rotation = crack.crack
+cracked_new = MessageDecrypt.new
+cracked_message = cracked_new.decryptor(message, rotation)
+cracked = cracked_message.join
+File.open(output_file, "w") { |file| file.write(cracked)}
+
+puts "Created #{output_file} with encryption #{rotation}"

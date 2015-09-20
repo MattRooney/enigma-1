@@ -6,7 +6,7 @@ require 'pry'
 input_file = ARGV[0]
 output_file = ARGV[1]
 date = Date.today.strftime("%d%m%y")
-message = File.read(input_file).chomp.downcase.chars
+message = File.read(input_file).chomp.downcase.gsub(/["\n"]/, " ").chars
 temp = Encryptor.new
 rotation = temp.rotation
 key = temp.key.join
