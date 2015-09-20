@@ -18,6 +18,3 @@ class MessageEncrypt
     array
   end
 end
-
-encrypt = MessageEncrypt.new.encryptor(["m", "e", "s", "s", "a", "g", "e"],[10, 60, 4, 98])
-encrypt

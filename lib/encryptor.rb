@@ -107,5 +107,3 @@ class Encryptor
     @rotation
   end
 end
-
-result = Encryptor.new
