@@ -16,29 +16,17 @@ class EncryptorTests < Minitest::Test
     assert_equal 5, num.random_generator.count
   end
 
-  def test_it_generates_five_different_keys
-    key1 = Key.new
-    key2 = Key.new
-    key3 = Key.new
-    key4 = Key.new
-    key5 = Key.new
-    refute_equal key1, key2
-    refute_equal key2, key3
-    refute_equal key3, key4
-    refute_equal key4, key5
-  end
-
   def test_key_created
     num = Key.new
     refute nil, num.random_generator
   end
 
-  # def test_it_squares_the_date
-  #   skip #deleted method - absorbed in offsets_array
-  #   date = Offsets.new
-  #   assert_equal 22775337225, date.square_date!
-  #   #will only pass on date created, remember to refactor
-  # end
+  def test_it_generates_ten_different_keys
+    10.times do key1 = Key.new
+    key2 = Key.new
+    refute_equal key1, key2
+    end
+  end
 
   def test_it_offsets
     assert_equal [7, 2, 2, 5], Offsets.new.offsets_array
@@ -55,12 +43,10 @@ class EncryptorTests < Minitest::Test
   end
 
   def test_it_has_a_unique_key_a
-    encryptor1 = Encryptor.new
+    10.times do encryptor1 = Encryptor.new
     encryptor2 = Encryptor.new
-    encryptor3 = Encryptor.new
     refute_equal encryptor1.key_a, encryptor2.key_a
-    refute_equal encryptor2.key_a, encryptor3.key_a
-    refute_equal encryptor1.key_a, encryptor3.key_a
+    end
   end
 
   def test_key_map_has_five_elements
@@ -109,27 +95,20 @@ class EncryptorTests < Minitest::Test
     assert_equal Offsets.new.offsets_array[3], encryptor.offsets_d
   end
 
-  def test_encryption_a_equals_key_a_plus_offsets_a
+  def test_it_has_a_rotation
     encryptor = Encryptor.new
-    assert_equal (encryptor.key_a) + (encryptor.offsets_a),
-      encryptor.encryption_a
+    assert encryptor.rotation
   end
 
-  def test_encryption_b_equals_key_b_plus_offsets_b
+  def test_rotation_has_all_four_rotations
     encryptor = Encryptor.new
-    assert_equal (encryptor.key_b) + (encryptor.offsets_b),
-      encryptor.encryption_b
+    assert_equal 4, encryptor.rotation.size
   end
 
-  def test_encryption_c_equals_key_c_plus_offsets_c
-    encryptor = Encryptor.new
-    assert_equal (encryptor.key_c) + (encryptor.offsets_c),
-      encryptor.encryption_c
-  end
-
-  def test_encryption_d_equals_key_d_plus_offsets_d
-    encryptor = Encryptor.new
-    assert_equal (encryptor.key_d) + (encryptor.offsets_d),
-      encryptor.encryption_d
+  def test_it_has_a_unique_rotation
+    10.times do encryptor1 = Encryptor.new
+    encryptor2 = Encryptor.new
+    refute_equal encryptor1, encryptor2
+    end
   end
 end

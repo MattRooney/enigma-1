@@ -107,15 +107,3 @@ end
     @rotation
   end
 end
-
-value = Encryptor.new
-value.key_a
-value.key_b
-value.key_c
-value.key_d
-value.key_array
-value.offsets_a
-value.offsets_b
-value.offsets_c
-value.offsets_d
-value.rotation

@@ -58,7 +58,8 @@ end
 
 input_file = ARGV[0]
 output_file = ARGV[1]
-message = File.read(input_file).chomp.downcase.chars
+temp = File.read(input_file).chomp.downcase.gsub(/["\n"]/, " ")
+message = temp.chars
 crack = Crack.new(message)
 rotation = crack.crack
 cracked_new = Decrypt.new
