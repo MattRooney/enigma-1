@@ -1,8 +1,7 @@
 require './lib/cracker'
-require 'minitest'
-require 'pry'
+require 'minitest/test'
 
-class CrackTests < Minitest::Test
+class CrackTest < Minitest::Test
 
   def test_it_returns_correct_pos
     tail = Crack.new("abdktfd")
@@ -43,5 +42,4 @@ class CrackTests < Minitest::Test
     array = Crack.new("abdktfd")
     assert_equal 4, array.crack.size
   end
-
 end

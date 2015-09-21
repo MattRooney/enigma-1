@@ -1,14 +1,13 @@
-require_relative '../lib/encryptor'
-require 'minitest'
-require 'pry'
+require './lib/encryptor'
+require 'minitest/test'
 
-class EncryptorTests < Minitest::Test
+class EncryptorTest < Minitest::Test
 
   def test_it_generates_random
     10.times do num = Key.new
     num2 = Key.new
     refute_equal num.random_generator, num2.random_generator
-  end
+    end
   end
 
   def test_generator_returns_five
@@ -112,4 +111,3 @@ class EncryptorTests < Minitest::Test
     end
   end
 end
-  

@@ -74,5 +74,4 @@ class DecryptorTest < Minitest::Test
     rotation = Decrypt.new
     assert_equal [19, 25, 36, 50], rotation.rotation
   end
-
 end

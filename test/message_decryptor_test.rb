@@ -9,6 +9,7 @@ class MessageDecryptTest < Minitest::Test
     assert_equal ["t", "h", "i", "s", " ", "i", "s", " ", "t",
       "e", "x", "t", "."], result
   end
+
   def test_it_shovels_more_than_four_characters
     message = MessageDecrypt.new
     result = message.decryptor(["t", "h", "i", "s", " "], [0, 0, 0, 0])
